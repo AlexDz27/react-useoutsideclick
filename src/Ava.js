@@ -1,25 +1,30 @@
 import { useEffect, useRef, useState } from 'react'
 
-function Ava() {
+function useOutsideClick() {
   const [isShown, setIsShown] = useState(false)
-  const popRef = useRef(null)
+  const componentRef = useRef(null)
 
   useEffect(() => {
-    function qwe(e) {
-      if (!popRef.current.contains(e.target)) setIsShown(false)
+    function handleClick(e) {
+      if (!componentRef.current.contains(e.target)) setIsShown(false)
     }
 
     if (isShown) {
-      setTimeout(() => window.addEventListener('click', qwe), 0)
+      setTimeout(() => window.addEventListener('click', handleClick), 0)
     }
-    return () => window.removeEventListener('click', qwe)
+    return () => window.removeEventListener('click', handleClick)
   }, [isShown])
+
+  return {isShown, setIsShown, componentRef}
+}
+
+function Ava() {
+  const {isShown, setIsShown, componentRef} = useOutsideClick()
 
   return (
     <div>
-      {isShown ? <p ref={popRef}><b>popup</b></p> : null}
+      {isShown ? <p ref={componentRef}><b>popup</b></p> : null}
       <p onClick={() => setIsShown(true)}>ava</p>
-      <button>qweqwe</button>
     </div>
   );
 }
