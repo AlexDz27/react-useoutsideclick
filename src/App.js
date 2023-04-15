@@ -1,3 +1,4 @@
+import AnotherApproach from './AnotherApproach';
 import Ava from './Ava'
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
     <div className="App">
       qwe
       <Ava />
+      <AnotherApproach />
     </div>
   );
 }
